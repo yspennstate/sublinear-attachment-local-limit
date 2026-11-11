@@ -52,11 +52,21 @@ endpoint is $i$ with probability
 Thus the in-degrees are updated after every edge, multiple edges may occur, and there are no loops. We write
 $D_i(n)$ for the in-degree of $i$ in $G_n$ and $S_n=\sum_{i\le n}f(D_i(n))$ for the total weight.
 
-When $f(k)=k+\delta$ is affine, the weights form a P\'olya urn, the graph has an exchangeable representation,
+When $f(k)=k+\delta$ is affine the model is a version of the preferential attachment graph of Barab\'asi and
+Albert~\cite{BA}. Bollob\'as, Riordan, Spencer and Tusn\'ady~\cite{BRST} made that graph precise and determined
+its degree sequence. In the affine case the weights
+form a P\'olya urn, the graph has an exchangeable representation,
 and Berger, Borgs, Chayes and Saberi~\cite{BBCS} used it to identify the local limit, the P\'olya point tree;
-see \cite{GHHR} and \cite[Chapter~5]{vdH2} for extensions, including random out-degrees. For $m=1$ the graph is a
+see \cite{GHHR,Lo} and \cite[Chapter~5]{vdH2} for extensions, including random out-degrees and additive fitness.
+Attachment functions that are not affine go back to Krapivsky, Redner and Leyvraz~\cite{KRL} and Krapivsky and
+Redner~\cite{KR}, who computed the limiting degree distribution of the tree $m=1$ for $f(k)=k^{a}$; it has the
+product form of~\eqref{eq:pk} below. For $m=1$ the graph is a
 tree, which embeds in a continuous-time branching process for every $f$, and Rudas, T\'oth and
-Valk\'o~\cite{RTV} obtained its local limit in this way. Dereich and M\"orters~\cite{DM1,DM2} treat concave
+Valk\'o~\cite{RTV} obtained its degree distribution and its local limit in this way. Choi, Sethuraman and
+Venkataramani~\cite{CSV} prove a law of large numbers for the degree counts when $f(k)/k\to0$ in a model in which
+every step adds one edge, from a new vertex to an old one or between two old vertices, so that the graph has cycles;
+their proof is a fluid limit, and they remark that it should apply to models in which a bounded number of edges is
+added at each step. Dereich and M\"orters~\cite{DM1,DM2} treat concave
 attachment functions in a model in which a new vertex connects to each old vertex independently, so
 that the out-degree is random. Open Problem~24 of~\cite{Aletti}, contributed by Deijfen and van der Hofstad,
 asks for the local limit when the out-degree is fixed, $m\ge2$, and $f$ is not affine: the branching process
@@ -89,7 +99,7 @@ rooted directed multigraph $H$,
 \[
     \frac1{|G_n|}\,\#\bigl\{u\in G_n:\ B_r(G_n,u)\cong H\bigr\}\ \longrightarrow\ \Prob\bigl(B_r(\cT,o)\cong H\bigr)
 \]
-in probability \cite{BS,vdH2}.
+in probability \cite{BS,AS,vdH2}; local convergence of directed graphs is set up in~\cite{GvdHL}.
 
 \begin{theorem}\label{thm:main}
 Assume \textup{(E1)--(E3)}.
@@ -109,6 +119,10 @@ integral $\mathbf P_H$ given in \eqref{eq:PH} and Proposition~\ref{prop:factors}
 \end{enumerate}
 \end{theorem}
 
+Part~\textup{(ii)} is the counterpart, for the model with fixed out-degree, of the law of large numbers
+of~\cite{CSV}, and for $m=1$ the formula for $p(c_f)$ is the degree distribution of~\cite{KRL,RTV};
+part~\textup{(iii)}
+answers Open Problem~24 of~\cite{Aletti} under \textup{(E1)--(E3)}.
 Constant $f$ is included and gives uniform attachment, for which $c_f=f(0)$ and $p(c_f)$ is geometric. The
 theorem does not cover attachment functions with $f(k)/k\to\gamma\in(0,\infty)$, affine or not, functions with
 unbounded increments, or functions with $\inf f=0$. Other conventions for the $m$
@@ -129,8 +143,10 @@ time $x$. For $f\equiv1$ this is the local limit of uniform attachment.
 \subsection{The proof}
 
 Without an urn representation the first difficulty is the normalisation $S_n$. We write the empirical in-degree
-distribution as a stochastic approximation in $\ell^1$ and identify its limit through a time change that turns
-the limiting differential equation into a linear one; the linear equation is solved by a renewal equation, and the
+distribution as a stochastic approximation in $\ell^1$, in the sense of~\cite{Benaim,Pemantle}, and identify its
+limit through a time change that turns
+the limiting differential equation into a linear one. The same time change appears in~\cite{CSV}, where the linear
+equation is treated by semigroup methods; here it is solved by a renewal equation, and the
 key renewal theorem gives convergence to $p(c_f)$ uniformly over the compact set of probability vectors with mean
 at most $m$ (Section~\ref{sec:normal}). No monotonicity of $f$ is needed, and the equilibrium need not be stable
 in any linearised sense that we would have to verify. The local limit is then obtained from an exact change of
@@ -231,16 +247,27 @@ The paper is part of the Math Brain project, whose public repository is
 \url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
 
 \begin{thebibliography}{99}
+\bibitem{AS} D.~Aldous and J.~M.~Steele, The objective method: probabilistic combinatorial optimization and local
+weak convergence, in \emph{Probability on Discrete Structures}, Encyclopaedia Math. Sci. 110, Springer, 2004, 1--72.
 \bibitem{Aletti} G.~Aletti, A.~Collevecchio, I.~Crimaldi, M.~Deijfen, S.~Dereich, A.~Ghiglietti, R.~van der Hofstad,
 M.~Holmes, D.~Kious, V.~Kleptsyn, B.~Lodewijks, P.~M\"orters and B.~Schapira, Open problems in stochastic
-reinforcement models, report of the MATRIX--MFO Tandem Workshop \emph{Stochastic Reinforcement Processes and Graphs},
-March 2023.
+reinforcement models, in \emph{2023 MATRIX Annals}, MATRIX Book Series, Springer, 2025, 477--498 (report of the
+MATRIX--MFO Tandem Workshop \emph{Stochastic Reinforcement Processes and Graphs}, March 2023).
 \bibitem{BDO} S.~Banerjee, P.~Deka and M.~Olvera-Cravioto, Local weak limits for collapsed branching processes with
-random out-degrees, arXiv:2302.00562.
+random out-degrees, \emph{Stochastic Process. Appl.} \textbf{182} (2025), Paper No.~104566; arXiv:2302.00562.
+\bibitem{BA} A.-L.~Barab\'asi and R.~Albert, Emergence of scaling in random networks, \emph{Science} \textbf{286}
+(1999), 509--512.
+\bibitem{Benaim} M.~Bena\"im, Dynamics of stochastic approximation algorithms, in \emph{S\'eminaire de
+Probabilit\'es XXXIII}, Lecture Notes in Math. 1709, Springer, 1999, 1--68.
 \bibitem{BS} I.~Benjamini and O.~Schramm, Recurrence of distributional limits of finite planar graphs,
 \emph{Electron. J. Probab.} \textbf{6} (2001), no.~23.
 \bibitem{BBCS} N.~Berger, C.~Borgs, J.~T.~Chayes and A.~Saberi, Asymptotic behavior and distributional limits of
 preferential attachment graphs, \emph{Ann. Probab.} \textbf{42} (2014), 1--40.
+\bibitem{BRST} B.~Bollob\'as, O.~Riordan, J.~Spencer and G.~Tusn\'ady, The degree sequence of a scale-free random
+graph process, \emph{Random Structures Algorithms} \textbf{18} (2001), 279--290.
+\bibitem{CSV} J.~Choi, S.~Sethuraman and S.~C.~Venkataramani, A scaling limit for the degree distribution in
+sublinear preferential attachment schemes, \emph{Random Structures Algorithms} \textbf{48} (2016), 703--731;
+arXiv:1402.4088.
 \bibitem{DM1} S.~Dereich and P.~M\"orters, Random networks with sublinear preferential attachment: degree
 evolutions, \emph{Electron. J. Probab.} \textbf{14} (2009), 1222--1267.
 \bibitem{DM2} S.~Dereich and P.~M\"orters, Random networks with sublinear preferential attachment: the giant
@@ -249,8 +276,18 @@ component, \emph{Ann. Probab.} \textbf{41} (2013), 329--384.
 Wiley, 1971.
 \bibitem{GHHR} A.~Garavaglia, R.~S.~Hazra, R.~van der Hofstad and R.~Ray, Universality of the local limit of
 preferential attachment models, arXiv:2212.05551.
+\bibitem{GvdHL} A.~Garavaglia, R.~van der Hofstad and N.~Litvak, Local weak convergence for PageRank, \emph{Ann.
+Appl. Probab.} \textbf{30} (2020), 40--79.
 \bibitem{vdH2} R.~van der Hofstad, \emph{Random Graphs and Complex Networks}, Vol.~2, Cambridge University Press,
 2024.
+\bibitem{KR} P.~L.~Krapivsky and S.~Redner, Organization of growing random networks, \emph{Phys. Rev. E}
+\textbf{63} (2001), 066123.
+\bibitem{KRL} P.~L.~Krapivsky, S.~Redner and F.~Leyvraz, Connectivity of growing random networks, \emph{Phys. Rev.
+Lett.} \textbf{85} (2000), 4629--4632.
+\bibitem{Lo} T.~Y.~Y.~Lo, Local weak limit of preferential attachment random trees with additive fitness,
+\emph{Adv. Appl. Probab.} \textbf{56} (2024), 785--824.
+\bibitem{Pemantle} R.~Pemantle, A survey of random processes with reinforcement, \emph{Probab. Surv.} \textbf{4}
+(2007), 1--79.
 \bibitem{RTV} A.~Rudas, B.~T\'oth and B.~Valk\'o, Random trees and general branching processes, \emph{Random
 Structures Algorithms} \textbf{31} (2007), 186--202.
 \bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026,
