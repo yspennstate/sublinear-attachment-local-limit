@@ -1,0 +1,110 @@
+\section{A priori bounds}\label{sec:apriori}
+
+Throughout this section $f$ satisfies $0<\alpha\le f(k)\le\beta<\infty$ for all $k\ge0$, and $C=\beta/\alpha$.
+The $m$ edges sent by a vertex $t$ are called the \emph{slots} of $t$ and are numbered $1,\dots,m$ in the order
+in which their endpoints are chosen.
+
+\begin{lemma}[Joint edge bound]\label{lem:edges}
+Let $E$ be a finite multiset of pairs $\{i,j\}$ of distinct labels in $[n]$, with $e$ elements counted with
+multiplicity. The probability that $G_n$ contains every pair of $E$ as an edge, with at least the prescribed
+multiplicity, is at most
+\[
+   \prod_{\{i,j\}\in E}\frac{mC}{\max(i,j)-1}\;\le\;(2mC)^e\prod_{\{i,j\}\in E}\frac1{\max(i,j)} .
+\]
+\end{lemma}
+
+\begin{proof}
+At any slot of a vertex $t$ and for any history, a given vertex $i<t$ is chosen with conditional probability
+$f(D_i)/S\le\beta/(\alpha(t-1))=C/(t-1)$, because the denominator is a sum of $t-1$ weights, each at least $\alpha$.
+Assign to every element $\{i,j\}$ of $E$ a slot of its younger endpoint $\max(i,j)$, distinct elements receiving
+distinct slots. Exposing the slots in chronological order and conditioning successively on the past, the
+probability that every assigned slot chooses its prescribed endpoint is at most the product of $C/(\max(i,j)-1)$
+over $E$. There are at most $m^e$ assignments, and the event in the statement is the union of the corresponding
+events. The second inequality uses $t-1\ge t/2$ for $t\ge2$.
+\end{proof}
+
+\begin{lemma}\label{lem:schur}
+The symmetric $n\times n$ matrix $H=(1/\max(i,j))_{i,j\le n}$ has operator norm at most $4$ on $\ell^2$.
+\end{lemma}
+
+\begin{proof}
+Let $w_i=i^{-1/2}$. Then $\sum_{j\le i}H_{ij}w_j=i^{-1}\sum_{j\le i}j^{-1/2}\le 2i^{-1/2}$ and
+$\sum_{j>i}H_{ij}w_j=\sum_{j>i}j^{-3/2}\le 2i^{-1/2}$, so $Hw\le 4w$ coordinatewise. For real $x$, the inequality
+$2|x_ix_j|\le x_i^2w_j/w_i+x_j^2w_i/w_j$ and the symmetry of $H$ give
+$|x^{\mathsf T}Hx|\le\sum_i x_i^2 (Hw)_i/w_i\le4\|x\|^2$.
+\end{proof}
+
+Let $U_n$ be uniform on $[n]$ and independent of $G_n$, and let $B_r(G_n,U_n)$ be the ball of radius $r$ around
+$U_n$ for the graph distance that ignores orientation. Put $B=8mC$.
+
+\begin{proposition}[Balls are bounded in mean and avoid old vertices]\label{prop:balls}
+For all $n\ge1$, $r\ge0$ and $1\le K\le n$,
+\[
+  \E\,|B_r(G_n,U_n)|\le\sum_{l=0}^{r}B^l,\qquad
+  \Prob\bigl(B_r(G_n,U_n)\cap[K]\neq\emptyset\bigr)\le\Bigl(\sum_{l=0}^{r}B^l\Bigr)\sqrt{K/n}.
+\]
+\end{proposition}
+
+\begin{proof}
+A vertex at distance $l$ from $U_n$ is the endpoint of a path $v_0=U_n,v_1,\dots,v_l$ with distinct vertices,
+hence distinct edges. By Lemma~\ref{lem:edges}, the expected number of such paths ending in a set $A$ is at most
+\[
+  \frac{(2mC)^l}{n}\sum_{v_0,\dots,v_l}\prod_{k=1}^{l}\frac{1}{\max(v_{k-1},v_k)}\mathbf 1_{v_l\in A}
+  =\frac{(2mC)^l}{n}\,\mathbf 1^{\mathsf T}H^l\mathbf 1_A\le\frac{(2mC)^l}{n}\,\sqrt n\,4^l\sqrt{|A|},
+\]
+by Lemma~\ref{lem:schur}. Take $A=[n]$ and $A=[K]$ and sum over $l\le r$.
+\end{proof}
+
+\begin{proposition}[No short cycles]\label{prop:cycles}
+For every fixed $r$, the probability that $B_r(G_n,U_n)$ contains a cycle or a multiple edge tends to $0$.
+\end{proposition}
+
+\begin{proof}
+Fix $\eps\in(0,1)$ and let $K=\lfloor\eps n\rfloor$. Suppose that the ball avoids $[K]$ and is not a simple tree.
+Take a breadth-first spanning tree of the ball and an edge of the ball outside it (a second copy of a multiple edge
+counts as such an edge). This edge together with the tree paths from its endpoints to the root forms a connected
+rooted multigraph with $v\le 2r+1$ vertices and exactly $v$ edges, all of whose labels exceed $K$. There are
+finitely many such rooted shapes. For a fixed shape there are at most $n^v$ labellings; the root label equals
+$U_n$ with probability $1/n$; and by Lemma~\ref{lem:edges} the $v$ edges are present with probability at most
+$(2mC/(\eps n))^v$. The union bound gives $O_{r,\eps}(1/n)$. With Proposition~\ref{prop:balls},
+\[
+  \limsup_{n\to\infty}\Prob\bigl(B_r(G_n,U_n)\text{ is not a simple tree}\bigr)\le\Bigl(\sum_{l\le r}B^l\Bigr)\sqrt\eps ,
+\]
+and $\eps$ is arbitrary.
+\end{proof}
+
+\begin{corollary}\label{cor:tight}
+The laws of the rooted graphs $(G_n,U_n)$ are tight for the local topology. Every subsequential limit is almost
+surely a locally finite simple tree in which every vertex has out-degree $m$; in particular it is infinite.
+\end{corollary}
+
+\begin{proof}
+A vertex has at most $m$ outgoing edges, so there are finitely many rooted directed multigraphs with at most $M$
+vertices that can occur as balls. Tightness follows from the first bound of Proposition~\ref{prop:balls} and
+Markov's inequality, applied for each $r$ with a threshold $M_r$ chosen so that the exceptional probabilities are
+summable. Limits are simple trees by Proposition~\ref{prop:cycles}. Every vertex other than vertex $1$ has
+out-degree $m$, all edges leaving $B_r$ are seen in $B_{r+1}$, and $B_{r+1}$ contains vertex $1$ with probability
+at most $(\sum_{l\le r+1}B^l)n^{-1/2}$; hence all out-degrees in a limit equal $m$. A finite tree with $v$
+vertices has $v-1<mv$ edges, so the limit is infinite.
+\end{proof}
+
+\begin{lemma}[Degrees]\label{lem:degrees}
+Let $D_i(n)$ be the in-degree of $i$ in $G_n$. Then $\E D_{U_n}(n)^2\le mC+2(mC)^2$, and for every $\delta>0$,
+\[
+   \Prob\Bigl(\max_{i\le n}D_i(n)\ge\delta n\Bigr)\le\frac{mC+2(mC)^2}{\delta^2n}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $L_i=mC\sum_{s=i}^{n-1}1/s$. Summing the single-slot bound $C/(t-1)$ over the slots of $t=i+1,\dots,n$ gives
+$\E D_i(n)\le L_i$, and summing the product of two such bounds over ordered pairs of distinct slots gives
+$\E[D_i(n)(D_i(n)-1)]\le L_i^2$. Exchanging the order of summation,
+\[
+  \sum_{i\le n}L_i=mC(n-1),\qquad \sum_{i\le n}L_i^2=(mC)^2\sum_{s,t<n}\frac{\min(s,t)}{st}\le 2(mC)^2(n-1).
+\]
+Hence $\sum_i\E D_i(n)^2\le n\,(mC+2(mC)^2)$, which gives the first claim, and the second follows from Markov's
+inequality and a union bound.
+\end{proof}
+
+The second statement says that no vertex receives a positive fraction of the edges. The first gives uniform
+integrability of the degree of the root, so the root of every subsequential limit has mean in-degree $m$.

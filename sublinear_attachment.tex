@@ -1,0 +1,263 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cT}{\mathcal{T}}
+
+\title[Sublinear preferential attachment with fixed out-degree]{The local limit of sublinear preferential
+attachment graphs with fixed out-degree}
+\author{Yitzchak Shmalo}
+\date{November 2026}
+
+\begin{document}
+\begin{abstract}
+We consider the preferential attachment graph in which every new vertex sends $m\ge2$ edges to the existing
+vertices, the endpoints being chosen one after another with probability proportional to $f(\text{in-degree})$, where
+the attachment function $f$ is bounded away from zero, has bounded increments and satisfies $f(k)/k\to0$. No
+monotonicity or concavity is assumed. We prove that the total weight of the first $n$ vertices divided by $n$
+converges almost surely to the unique solution $c_f$ of an explicit scalar equation, that the empirical in-degree
+distribution converges almost surely to the law of a pure birth process with rates $mf(k)/c_f$ observed at an
+independent exponential time, and that the graph converges locally in probability to an infinite random tree. The
+probability of every finite ball in the limit is given by an explicit integral over the ages of its vertices. This
+answers, for this class of attachment functions, a question of Deijfen and van der Hofstad on local limits beyond
+the affine case when the out-degree is fixed.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+\subsection{The model and the question}
+
+Fix an integer $m\ge2$ and a function $f:\{0,1,2,\dots\}\to(0,\infty)$. The graph $G_1$ consists of the vertex $1$
+and no edge. Given $G_t$, whose vertex set is $[t]=\{1,\dots,t\}$, the graph $G_{t+1}$ is obtained by adding the
+vertex $t+1$ and $m$ directed edges from $t+1$ to vertices of $[t]$. The endpoints are chosen one after another.
+If $D_i$ denotes the current in-degree of $i\in[t]$, which includes the edges already sent by $t+1$, the next
+endpoint is $i$ with probability
+\[
+     \frac{f(D_i)}{\sum_{j\le t}f(D_j)} .
+\]
+Thus the in-degrees are updated after every edge, multiple edges may occur, and there are no loops. We write
+$D_i(n)$ for the in-degree of $i$ in $G_n$ and $S_n=\sum_{i\le n}f(D_i(n))$ for the total weight.
+
+When $f(k)=k+\delta$ is affine, the weights form a P\'olya urn, the graph has an exchangeable representation,
+and Berger, Borgs, Chayes and Saberi~\cite{BBCS} used it to identify the local limit, the P\'olya point tree;
+see \cite{GHHR} and \cite[Chapter~5]{vdH2} for extensions, including random out-degrees. For $m=1$ the graph is a
+tree, which embeds in a continuous-time branching process for every $f$, and Rudas, T\'oth and
+Valk\'o~\cite{RTV} obtained its local limit in this way. Dereich and M\"orters~\cite{DM1,DM2} treat concave
+attachment functions in a model in which a new vertex connects to each old vertex independently, so
+that the out-degree is random. Open Problem~24 of~\cite{Aletti}, contributed by Deijfen and van der Hofstad,
+asks for the local limit when the out-degree is fixed, $m\ge2$, and $f$ is not affine: the branching process
+embedding does not extend to this case, and the P\'olya urn representation is not available. Banerjee, Deka and
+Olvera-Cravioto~\cite{BDO} obtain local limits for graphs constructed by collapsing the vertices of a tree with a
+general attachment function; in a collapsed graph the weight of a vertex is the sum of the weights of the tree
+vertices it is made of, which is a function of its degree only when $f$ is affine.
+
+\subsection{The result}
+
+We assume
+\begin{itemize}
+\item[\textup{(E1)}] $f(k)\ge\alpha$ for all $k$, for some $\alpha>0$;
+\item[\textup{(E2)}] $|f(k+1)-f(k)|\le L$ for all $k$, for some $L<\infty$;
+\item[\textup{(E3)}] $f(k)/k\to0$ as $k\to\infty$.
+\end{itemize}
+Examples are all functions with values in a compact subset of $(0,\infty)$, the functions $(k+\delta)^a$ with
+$\delta>0$ and $0<a<1$, and $1+\log(k+1)$. For $d>0$ let $p(d)=(p_k(d))_{k\ge0}$ be the probability vector
+\begin{equation}\label{eq:pk}
+   p_k(d)=\frac{d}{d+mf(k)}\prod_{j=0}^{k-1}\frac{mf(j)}{d+mf(j)} ,
+\end{equation}
+which is the law of $X(T)$ when $X$ is the pure birth process started at $0$ with rates $(m/d)f(k)$ and $T$ is
+an independent exponential time of mean one.
+
+For a rooted graph $(G,u)$ and $r\ge0$, let $B_r(G,u)$ be the subgraph induced by the vertices at distance at most
+$r$ from $u$, where the distance ignores the orientation of the edges; $B_r(G,u)$ is rooted at $u$ and keeps the
+orientations. We write $\cong$ for isomorphism of rooted directed multigraphs. A sequence of finite random graphs
+$G_n$ \emph{converges locally in probability} to a random rooted graph $(\cT,o)$ if, for every $r$ and every finite
+rooted directed multigraph $H$,
+\[
+    \frac1{|G_n|}\,\#\bigl\{u\in G_n:\ B_r(G_n,u)\cong H\bigr\}\ \longrightarrow\ \Prob\bigl(B_r(\cT,o)\cong H\bigr)
+\]
+in probability \cite{BS,vdH2}.
+
+\begin{theorem}\label{thm:main}
+Assume \textup{(E1)--(E3)}.
+\begin{enumerate}
+\item[\textup{(i)}] There is a unique $c_f>0$ such that
+\[
+     \sum_{k\ge1}\ \prod_{j=0}^{k-1}\frac{mf(j)}{c_f+mf(j)}=m ,
+\]
+that is, such that $p(c_f)$ has mean $m$.
+\item[\textup{(ii)}] Almost surely $S_n/n\to c_f$, and the proportion of vertices of $G_n$ with in-degree $k$
+converges to $p_k(c_f)$ for every $k$, with convergence of the sequences in $\ell^1$. Moreover
+$\max_{i\le n}D_i(n)/n\to0$ in probability.
+\item[\textup{(iii)}] $G_n$ converges locally in probability to a random rooted directed tree $(\cT_f,o)$. This
+tree is infinite and has no multiple edges, every vertex has out-degree $m$, the in-degree of the root has law
+$p(c_f)$, and for every admissible ball shape $H$ of radius $r$ the probability $\Prob(B_r(\cT_f,o)\cong H)$ is the
+integral $\mathbf P_H$ given in \eqref{eq:PH} and Proposition~\ref{prop:factors}, with $c=c_f$.
+\end{enumerate}
+\end{theorem}
+
+Constant $f$ is included and gives uniform attachment, for which $c_f=f(0)$ and $p(c_f)$ is geometric. The
+theorem does not cover attachment functions with $f(k)/k\to\gamma\in(0,\infty)$, affine or not, functions with
+unbounded increments, or functions with $\inf f=0$. Other conventions for the $m$
+edges of a vertex, such as in-degrees that are updated only after the $m$ edges, are not treated either.
+
+\begin{remark}[The limiting tree]\label{rem:tree}
+The formula for $\mathbf P_H$ has the following reading. Let $\lambda=m/c_f$ and $h_\lambda(u)=\E f(X(u))$, where
+$X$ is the pure birth process started at $0$ with rates $\lambda f(k)$. Every vertex of $\cT_f$ has an age in
+$(0,1)$, and the age of the root is uniform. A vertex of age $x$ sends its $m$ edges to parents whose ages are
+independent with density $h_\lambda(\log(x/y))/(c_fx)$ on $(0,x)$; for a vertex reached from one of its parents
+this applies to the other $m-1$ edges. The density is uniform only when $f$ is constant. The children of the root, and of any vertex reached from one of its parents, are born at the jump
+times of a birth process which starts from $0$ at the age $x$ of the vertex and jumps from $k$ to $k+1$ at rate
+$\lambda f(k)/t$ at time $t\in(x,1]$. For a vertex of age $y$ reached from one of its children, of age $x$, the
+law of this birth process is weighted by $f$ evaluated at its state just before time $x$, and a jump is added at
+time $x$. For $f\equiv1$ this is the local limit of uniform attachment.
+\end{remark}
+
+\subsection{The proof}
+
+Without an urn representation the first difficulty is the normalisation $S_n$. We write the empirical in-degree
+distribution as a stochastic approximation in $\ell^1$ and identify its limit through a time change that turns
+the limiting differential equation into a linear one; the linear equation is solved by a renewal equation, and the
+key renewal theorem gives convergence to $p(c_f)$ uniformly over the compact set of probability vectors with mean
+at most $m$ (Section~\ref{sec:normal}). No monotonicity of $f$ is needed, and the equilibrium need not be stable
+in any linearised sense that we would have to verify. The local limit is then obtained from an exact change of
+measure: the probability that prescribed slots choose prescribed endpoints equals an expectation, for the
+process in which these choices are forced, of a product of ratios $f(D)/S$ (Section~\ref{sec:local}). Finitely
+many forced choices do not change the normalisation, the in-degrees of finitely many tagged vertices become
+independent birth processes in the logarithm of the age, and a count of embeddings with a second moment
+computation for two independent roots completes the proof. The a priori bounds on the size of balls and on old
+vertices are in Section~\ref{sec:apriori}. Sections~\ref{sec:apriori}--\ref{sec:local} are written for bounded
+$f$; Section~\ref{sec:sublinear} gives the changes needed under \textup{(E1)--(E3)}, the main one being a moment
+bound for the in-degree of a vertex which replaces the uniform bound on the probability of an edge.
+Section~\ref{sec:sim} compares the formulas with simulations.
+
+\input{sec_apriori}
+\input{sec_normal}
+\input{sec_local}
+\input{sec_sublinear}
+
+\section{Simulations}\label{sec:sim}
+
+The process was simulated as defined, with $m=2$ and $n=10^6$ vertices, for the two-level rule $f(0)=1$,
+$f(k)=2$ $(k\ge1)$ of Example~\ref{ex:two} and for $f(k)=\sqrt{k+1}$. For the two-level rule with $f(0)=a$ and
+$f(k)=b$ one has $h_\lambda(u)=b+(a-b)e^{-\lambda au}$, so by Remark~\ref{rem:tree} the ratio of the age of a
+parent to the age of its child has density $(b+(a-b)v^{\lambda a})/c_f$ on $(0,1)$, with mean
+$(b/2+(a-b)/(\lambda a+2))/c_f$. Let $H$ be the ball of radius $2$ in which the root has no child and each of its
+$m$ parents has no child other than the root. In Proposition~\ref{prop:factors} the root, of age $x$, contributes
+$x^{\lambda a}$, a parent of age $y$ contributes $a(y/x)^{\lambda a}x^{\lambda b}/(c_fx)$, each grandparent
+integrates to one, and the slot factors cancel the automorphisms, so
+\[
+   \mathbf P_H=\int_0^1x^{\lambda a}\Bigl(\frac{a\,x^{\lambda b}}{c_f(1+\lambda a)}\Bigr)^m\mathrm dx
+      =\frac{(a\,p_0/c_f)^m}{1+\lambda a+m\lambda b},\qquad p_0=p_0(c_f)=\frac1{1+\lambda a}.
+\]
+Table~\ref{tab:sim} gives the limits and the values observed in four independent runs. The age ratio is measured
+for the first edge of the vertices $n/2,\dots,n$, the other quantities over all vertices.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccccc}
+\toprule
+ & limit & run 1 & run 2 & run 3 & run 4\\
+\midrule
+\multicolumn{6}{l}{$f(0)=1$, $f(k)=2$ for $k\ge1$}\\
+$p_0$ & 0.43845 & 0.43818 & 0.43821 & 0.43837 & 0.43879\\
+$p_1$ & 0.15767 & 0.15773 & 0.15802 & 0.15727 & 0.15758\\
+$p_2$ & 0.11340 & 0.11372 & 0.11323 & 0.11365 & 0.11301\\
+$p_3$ & 0.08156 & 0.08158 & 0.08151 & 0.08178 & 0.08162\\
+mean age ratio, parent to child & 0.44519 & 0.44485 & 0.44540 & 0.44519 & 0.44539\\
+$\mathbf P_H$ for the ball above & 0.010648 & 0.010782 & 0.010718 & 0.010594 & 0.010709\\
+\midrule
+\multicolumn{6}{l}{$f(k)=\sqrt{k+1}$}\\
+$S_n/n$ & 1.56616 & 1.56618 & 1.56619 & 1.56615 & 1.56637\\
+$p_0$ & 0.43917 & 0.43919 & 0.43879 & 0.43960 & 0.43878\\
+$p_1$ & 0.19987 & 0.19937 & 0.20022 & 0.19941 & 0.19973\\
+$p_2$ & 0.11238 & 0.11266 & 0.11264 & 0.11224 & 0.11294\\
+$p_3$ & 0.06994 & 0.07006 & 0.06971 & 0.07025 & 0.07005\\
+\bottomrule
+\end{tabular}
+\caption{Limits from Theorem~\ref{thm:main} and simulated values, $m=2$, $n=10^6$.}\label{tab:sim}
+\end{table}
+
+A proportion $p$ measured on $10^6$ vertices has standard deviation about $\sqrt{p(1-p)}\times10^{-3}$ if the
+vertices are treated as independent, which is $5\times10^{-4}$ for $p_0$ and $10^{-4}$ for $\mathbf P_H$. The
+differences in the table are of this order; the largest is $1.3$ such standard deviations.
+
+\section*{Acknowledgements and funding}
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math
+Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent
+memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results,
+coordinate who works on what, and audit each other's work. For more on the details behind the Brain and Math Brain, see
+the Math Brain paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework
+repository~\cite{BrainFramework}.
+
+The research presented in this paper was supported by the European Research Council (ERC) under the European Union's
+Horizon Europe research and innovation programme (grant agreement No.~101041711), by the Simons Foundation as part of
+the Collaboration on the Mathematical and Scientific Foundations of Deep Learning, by Heights Labs, by Convex Nexus
+Capital, by the Israel Science Foundation (grant number 2258/19), and by the Israel Science Foundation (ISF Grant
+4101/25). Computational resources were provided in part by Google Cloud through its education credits program (credit
+530550103).
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and has a management role at Convex Nexus Capital.
+These entities are included in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+The paper comes out of Math Brain, an ongoing project on the use of AI systems for research mathematics, and its
+results were developed with the Brain~\cite{BrainFramework} and Math Brain~\cite{MathBrainRepo}. In October 2026 an AI
+agent connected to the Brain, working from the project's list of open problems in probability, obtained
+Theorem~\ref{thm:main} and a proof; a Codex agent (OpenAI) and a Claude agent (Anthropic) each checked that
+argument, and the second wrote the simulation program. In November 2026 a Claude Fable agent (Anthropic) checked
+the proof again, ran the simulations and prepared the manuscript. These checks are not peer review. The author
+directed the work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+\section*{Code and data availability}
+Programs and outputs:\\
+\url{https://github.com/yspennstate/sublinear-attachment-local-limit}.
+
+The paper is part of the Math Brain project, whose public repository is
+\url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
+
+\begin{thebibliography}{99}
+\bibitem{Aletti} G.~Aletti, A.~Collevecchio, I.~Crimaldi, M.~Deijfen, S.~Dereich, A.~Ghiglietti, R.~van der Hofstad,
+M.~Holmes, D.~Kious, V.~Kleptsyn, B.~Lodewijks, P.~M\"orters and B.~Schapira, Open problems in stochastic
+reinforcement models, report of the MATRIX--MFO Tandem Workshop \emph{Stochastic Reinforcement Processes and Graphs},
+March 2023.
+\bibitem{BDO} S.~Banerjee, P.~Deka and M.~Olvera-Cravioto, Local weak limits for collapsed branching processes with
+random out-degrees, arXiv:2302.00562.
+\bibitem{BS} I.~Benjamini and O.~Schramm, Recurrence of distributional limits of finite planar graphs,
+\emph{Electron. J. Probab.} \textbf{6} (2001), no.~23.
+\bibitem{BBCS} N.~Berger, C.~Borgs, J.~T.~Chayes and A.~Saberi, Asymptotic behavior and distributional limits of
+preferential attachment graphs, \emph{Ann. Probab.} \textbf{42} (2014), 1--40.
+\bibitem{DM1} S.~Dereich and P.~M\"orters, Random networks with sublinear preferential attachment: degree
+evolutions, \emph{Electron. J. Probab.} \textbf{14} (2009), 1222--1267.
+\bibitem{DM2} S.~Dereich and P.~M\"orters, Random networks with sublinear preferential attachment: the giant
+component, \emph{Ann. Probab.} \textbf{41} (2013), 329--384.
+\bibitem{Feller} W.~Feller, \emph{An Introduction to Probability Theory and its Applications}, Vol.~II, 2nd ed.,
+Wiley, 1971.
+\bibitem{GHHR} A.~Garavaglia, R.~S.~Hazra, R.~van der Hofstad and R.~Ray, Universality of the local limit of
+preferential attachment models, arXiv:2212.05551.
+\bibitem{vdH2} R.~van der Hofstad, \emph{Random Graphs and Complex Networks}, Vol.~2, Cambridge University Press,
+2024.
+\bibitem{RTV} A.~Rudas, B.~T\'oth and B.~Valk\'o, Random trees and general branching processes, \emph{Random
+Structures Algorithms} \textbf{31} (2007), 186--202.
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026,
+\url{https://github.com/yspennstate/math-brain-public}.
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research},
+October 2026, \url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026,
+\url{https://github.com/yspennstate/brain-framework-public}.
+\end{thebibliography}
+\end{document}

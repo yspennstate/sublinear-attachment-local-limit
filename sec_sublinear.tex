@@ -1,0 +1,168 @@
+\section{Unbounded sublinear weights}\label{sec:sublinear}
+
+We now assume only \textup{(E1)--(E3)}: $f\ge\alpha>0$, $|f(k+1)-f(k)|\le L$ and $f(k)/k\to0$. A bounded $f$ with
+$\inf f>0$ satisfies them, with $L=\beta-\alpha$. By \textup{(E3)}, for every $\eps>0$ there is $a_\eps\ge1$ with
+\begin{equation}\label{eq:lin}
+    f(k)\le\eps\,(k+a_\eps)\qquad\text{for all }k\ge0 .
+\end{equation}
+The plan of the proof is the same, and we describe the changes section by section. The bounds $f\le\beta$ and
+$C=\beta/\alpha$ were used in three places: the single-slot bound $C/(t-1)$ behind
+Section~\ref{sec:apriori}, the boundedness of the operator $Q$ in Section~\ref{sec:normal}, and the couplings of
+Section~\ref{sec:local}.
+
+\subsection{Moments of a degree and the edge bound}
+
+Let $E$ be a multiset of pairs of labels with a slot assignment as in the proof of Lemma~\ref{lem:edges}. The
+forced process, in which each assigned slot chooses its prescribed endpoint, and the identity \eqref{eq:com} are
+defined as in Section~\ref{sec:local}; the identity holds for every positive $f$.
+
+\begin{lemma}\label{lem:moments}
+Let $\theta\in(0,1/2)$ and let $p\ge1$, $q\ge0$ be integers. There are $a\ge1$ and $K<\infty$ such that, in the
+original process and in every forced process with at most $q$ assigned slots, for all $i<j$,
+\[
+    \E^\sigma\bigl[(D_i+a)^p\bigr]\le K\,(j/i)^{p\theta},
+\]
+where $D_i$ is the in-degree of $i$ at any moment up to the last slot of vertex $j$.
+\end{lemma}
+
+\begin{proof}
+Let $\eps=\alpha\theta/(2m)$ and choose $a\ge a_\eps$ with $(1+1/a)^{p-1}\le2$. Put $Z=D_i+a$. At a slot of a vertex
+$t+1$ that is not assigned, $i$ is chosen with conditional probability at most $f(D_i)/(\alpha t)\le\eps Z/(\alpha t)$,
+and $(Z+1)^p-Z^p\le p\,(1+1/a)^{p-1}Z^{p-1}$. Hence the conditional expectation of $Z^p$ after the slot is at most
+$(1+2p\eps/(\alpha t))Z^p$, and over the $m$ slots of the vertex the factor is at most
+$\exp(2pm\eps/(\alpha t))=\exp(p\theta/t)$. An assigned slot multiplies $Z^p$ by at most $(1+1/a)^p$. Since
+$\sum_{s=i}^{j-1}1/s\le1+\log(j/i)$, the claim holds with $K=a^p(1+1/a)^{pq}e^{p\theta}$.
+\end{proof}
+
+\begin{lemma}[Joint edge bound]\label{lem:edges2}
+Let $\theta\in(0,1/2)$. For every $e$ there is $K_e$ such that, for every multiset $E$ of $e$ pairs of distinct
+labels, the probability that $G_n$ contains every pair of $E$ with at least the prescribed multiplicity is at most
+\[
+    K_e\prod_{\{i,j\}\in E}\max(i,j)^{\theta-1}\min(i,j)^{-\theta}.
+\]
+\end{lemma}
+
+\begin{proof}
+Fix a slot assignment, and let $\eps$, $a$ and $K$ be as in Lemma~\ref{lem:moments} and its proof for $p=q=e$,
+so that $f(k)\le\eps(k+a)$. By \eqref{eq:com} with $\Psi=1$, the bound $S^-\ge\alpha(j-1)\ge\alpha j/2$,
+H\"older's inequality with exponent $e$, and Lemma~\ref{lem:moments}, the
+probability that all assigned slots choose their prescribed endpoints is at most
+\[
+    \prod_{j\to i}\frac{2\eps}{\alpha j}\Bigl(\E^\sigma\bigl[(D^-_{j\to i}+a)^e\bigr]\Bigr)^{1/e}
+    \le\prod_{j\to i}\frac{2\eps K^{1/e}}{\alpha}\,j^{\theta-1}i^{-\theta},
+\]
+where $j\to i$ runs over the pairs of $E$ with $j>i$. There are at most $m^e$ slot assignments.
+\end{proof}
+
+Let $H_\theta(i,j)=\max(i,j)^{\theta-1}\min(i,j)^{-\theta}$. With $w_i=i^{-1/2}$,
+\[
+   \sum_{j\le i}H_\theta(i,j)w_j=i^{\theta-1}\sum_{j\le i}j^{-\theta-1/2}\le\frac{i^{-1/2}}{1/2-\theta},\qquad
+   \sum_{j>i}H_\theta(i,j)w_j=i^{-\theta}\sum_{j>i}j^{\theta-3/2}\le\frac{i^{-1/2}}{1/2-\theta},
+\]
+so the argument of Lemma~\ref{lem:schur} gives $\|H_\theta\|\le2/(1/2-\theta)$. Take $\theta=1/4$. The proofs of
+Section~\ref{sec:apriori} then go through with Lemma~\ref{lem:edges2} in place of Lemma~\ref{lem:edges}: for each
+$r$ there is $K_r$ with
+\[
+    \E|B_r(G_n,U_n)|\le K_r,\qquad \Prob\bigl(B_r(G_n,U_n)\cap[K]\ne\emptyset\bigr)\le K_r\sqrt{K/n};
+\]
+if all labels exceed $\eps n$, every factor in Lemma~\ref{lem:edges2} is at most $1/(\eps n)$, which is what the
+proof of Proposition~\ref{prop:cycles} uses; and Corollary~\ref{cor:tight} is unchanged. Lemma~\ref{lem:moments}
+with $p=2$, $q=0$ gives $\E D_i(n)^2\le K(n/i)^{1/2}$, hence $\E D_{U_n}(n)^2\le2K$ and
+$\Prob(\max_iD_i(n)\ge\delta n)\le2K/(\delta^2n)$, which replaces Lemma~\ref{lem:degrees}.
+
+\subsection{The normalisation}
+
+The operator $Q$ is no longer bounded on $\ell^1$, and $F$ is not Lipschitz. On the compact set $\cK$, however,
+\eqref{eq:lin} gives for $y,z\in\cK$ and $J\ge1$
+\begin{equation}\label{eq:stail}
+\begin{gathered}
+   \alpha\le s(y)\le\eps(m+a_\eps),\qquad \sum_{k\ge J}f(k)\,y_k\le m\sup_{k\ge J}\frac{f(k)}k,\\
+   \sum_kf(k)|y_k-z_k|\le\max_{k<J}f(k)\,\|y-z\|_1+2m\sup_{k\ge J}\frac{f(k)}k .
+\end{gathered}
+\end{equation}
+Since $\|Qy\|_1\le2\sum_kf(k)|y_k|$, the maps $s$, $Q$ and $F$ are uniformly continuous on $\cK$ for the
+$\ell^1$ norm, $\|F(y)\|_1\le2+2m$, and $\sup_{y\in\cK}\sum_{k>J}|F(y)_k|\to0$ as $J\to\infty$.
+
+\emph{The recursion.} Let $b_n=\max_{k\le mn}f(k)$, so that $b_n/n\to0$. During the slots of vertex $n+1$ the
+count vector $N$ changes by at most $2m$ in $\ell^1$, so $QN$ changes by at most $4mb_n$, and $S$ changes by at
+most $mL$ by \textup{(E2)}, while $S\ge\alpha n$ and $\|QN\|_1\le2S$. Hence \eqref{eq:sa} holds with the same
+$\eta_{n+1}$ and with $\|\rho_n\|_1\le K_0(b_n+1)/n\to0$. In the proof of Lemma~\ref{lem:noise} the
+$\rho$ terms now contribute at most $(T+1)\sup_{n\ge N}\|\rho_n\|_1$, and the $F$ terms are controlled by the
+uniform tail bound above; the conclusion of the lemma holds.
+
+\emph{The semigroup.} The pure birth process $X$ with rates $f(k)$ does not explode, because by \eqref{eq:lin}
+$\E_k(X_t+a_\eps)\le(k+a_\eps)e^{\eps t}$. Its semigroup $P_t$ acts on $\ell^1$ as a strongly continuous
+semigroup of positive contractions that preserve mass, and it is bounded and strongly continuous for the norm
+$\|y\|_{(1)}=\sum_k(1+k)|y_k|$. The operator $Q$ is bounded from this weighted space to $\ell^1$. For a finitely
+supported $y$, $P_ty-y=\int_0^tP_uQy\,\mathrm du$; by density this extends to all $y$ with
+$\|y\|_{(1)}<\infty$, so such $y$ belong to the domain of the generator of $(P_t)$ on $\ell^1$, and the generator
+acts on them as $Q$. For $y\in\cK$ put $g_y(t)=s(P_ty)$ and $h(t)=s(P_te_0)$; then, for every $\eps>0$,
+\begin{equation}\label{eq:gh}
+   \alpha\le g_y(t)\le\eps(m+a_\eps)e^{\eps t},\qquad \alpha\le h(t)\le\eps a_\eps e^{\eps t},
+   \qquad \E_0X_t=\int_0^th(u)\,\mathrm du .
+\end{equation}
+
+\begin{lemma}\label{lem:flow2}
+Let $y:[0,T]\to\cK$ be a solution of $y(\tau)=y(0)+\int_0^\tau F(y(u))\,\mathrm du$. Define the clock $t(\tau)$ by
+$\mathrm dt/\mathrm d\tau=m/s(y(\tau))$, $t(0)=0$, let $z(t)=y(\tau(t))$ and
+$w(t)=z(t)\exp\bigl(\frac1m\int_0^ts(z(u))\,\mathrm du\bigr)$. Then $w$ and $\sigma=s(w)$ satisfy \eqref{eq:voc}
+with initial vector $y(0)$. In particular $y$ is determined by $y(0)$.
+\end{lemma}
+
+\begin{proof}
+The integrand is continuous, so $y$ is continuously differentiable in $\ell^1$, and so are $z$ and $w$. As in
+Lemma~\ref{lem:flowrep}, $w'=Qw+\frac1me_0\,s(w)$, where $w(t)$ has finite mean and therefore lies in the domain of
+the generator. For fixed $t$ the function $u\mapsto P_{t-u}w(u)$ is then differentiable on $[0,t]$ with derivative
+$P_{t-u}(w'(u)-Qw(u))=\frac1mP_{t-u}e_0\,\sigma(u)$, which gives the first equation of \eqref{eq:voc}. Applying the
+positive linear functional $s$ to it gives the second. The functions $g_y$ and $h$ are locally bounded by
+\eqref{eq:gh} and $\sigma$ is continuous, so $\sigma$ is the unique locally bounded solution of this Volterra
+equation; it determines $w$, then $z=w/|w|$, then the clock.
+\end{proof}
+
+\emph{Uniform attraction.} By \eqref{eq:gh} the Laplace transform of $h$ is finite on $(0,\infty)$, continuous
+and strictly decreasing, at least $\alpha/\gamma$ at $\gamma$, and tends to $0$ at infinity. Let $\gamma>0$ be the
+point where it equals $m$ and $\kappa(t)=e^{-\gamma t}h(t)/m$. Taking $\eps<\gamma$ in \eqref{eq:gh}, $\kappa$ is
+continuous and bounded by a multiple of $e^{-(\gamma-\eps)t}$, hence directly Riemann integrable, and
+$\tilde g_y(u)=e^{-\gamma u}g_y(u)$ lies between $\alpha e^{-\gamma u}$ and $\eps(m+a_\eps)e^{-(\gamma-\eps)u}$ for
+all $y\in\cK$. The proof of Proposition~\ref{prop:attract} now applies word for word to the functions $w$ of
+Lemma~\ref{lem:flow2}: $z(t)\to\pi=\gamma\int_0^\infty e^{-\gamma u}P_ue_0\,\mathrm du$ in $\ell^1$ as
+$t\to\infty$, uniformly in $y(0)\in\cK$, and the clock satisfies $t\ge m\tau/(\eps(m+a_\eps))$. The vector $\pi$ is
+$p(m\gamma)$; by the last identity of \eqref{eq:gh} its mean is $\int_0^\infty e^{-\gamma u}h(u)\,\mathrm du=m$,
+and $s(\pi)=\gamma\int_0^\infty e^{-\gamma u}h(u)\,\mathrm du=m\gamma$. The function $M$ of
+Section~\ref{sec:normal} is finite, since $M(d)=\int_0^\infty e^{-t}\,\E_0X_{mt/d}\,\mathrm dt$ and
+$\E_0X_t\le a_\eps e^{\eps t}$ for every $\eps>0$, and it is strictly decreasing, so $c_f=m\gamma$
+is the only solution of $M(d)=m$. This proves Lemma~\ref{lem:scalar}(iii) in the present setting, without the
+bounds $\alpha\le c_f\le\beta$; one has $c_f\ge\alpha$.
+
+\emph{Proof of Theorem~\ref{thm:normal}.} Suppose that, with positive probability,
+$\|y(\tau_k)-\pi\|_1>2\delta$ along a sequence $\tau_k\to\infty$. Fix $T$ such that every solution
+$y:[0,T]\to\cK$ of the integral equation of Lemma~\ref{lem:flow2} has $\|y(T)-\pi\|_1\le\delta$. The paths
+$u\mapsto y(\tau_k-T+u)$, $u\in[0,T]$, take values in the compact set $\cK$ and are uniformly Lipschitz, so a
+subsequence converges uniformly to some $\bar y$. By \eqref{eq:sa}, Lemma~\ref{lem:noise}, $\|\rho_n\|_1\to0$ and
+the uniform continuity of $F$ on $\cK$, the limit satisfies $\bar y(u)=\bar y(0)+\int_0^uF(\bar y(v))\,\mathrm dv$.
+Hence $\|\bar y(T)-\pi\|_1\le\delta$, a contradiction. Thus $y_n\to\pi=p(c_f)$ almost surely in $\ell^1$, and
+$S_n/n=s(y_n)\to s(\pi)=c_f$ because $s$ is continuous on $\cK$.
+
+\subsection{The local limit}
+
+Since $s$ is bounded on $\cK$, \eqref{eq:tailsup} holds. In Lemma~\ref{lem:forcedS} replace $\bar K$ by a bound
+for the $\ell^1$ distance $\bar d$ between the two in-degree sequences: by \textup{(E2)} the two weight vectors
+differ by at most $L\bar d$ in $\ell^1$, the two choices at a slot of vertex $t+1$ differ with probability at most
+$L\bar d/(\alpha t)$, a disagreement or an assigned slot increases $\bar d$ by at most $2$, and the two values of
+$S_t$ differ by at most $L\bar d$. This gives $\E\bar d\le K_\eps$ and the conclusion of the lemma.
+
+In Lemma~\ref{lem:tagged}, fix $M$ and stop the comparison when a tagged in-degree exceeds $M$. Before that time
+only the values $f(0),\dots,f(M)$ are used and the proof applies. By Lemma~\ref{lem:moments} with $p=1$ the
+probability that a tagged in-degree exceeds $M$ before time $n$ is at most $K_\eps/M$, uniformly in $n$ and in
+the labelling, and the processes $Y_i$ do not explode. Letting $n\to\infty$ and then $M\to\infty$ gives the
+convergence in total variation.
+
+In Proposition~\ref{prop:embed} the product of the numerators $f(D^-_{j\to i})$ is not bounded, but by H\"older's
+inequality and Lemma~\ref{lem:moments} with $p=2e$ its second moment under $\Prob^\sigma$ is bounded uniformly in
+$n$ and in the labellings with labels at least $\eps n$. The factors $n/S^-$ are at most $2/(\alpha\eps)$ and
+converge in probability. Uniform integrability therefore gives the same limit and a uniform bound for
+$n^e\Prob(E_{\iota,\sigma}\cap D_\iota)$.
+
+The proof of Theorem~\ref{thm:localbdd} then applies with Lemma~\ref{lem:edges2} in the estimate of the extra
+edge and the ball bounds of this section in the removal of the cutoff and in the two-root step.
+Proposition~\ref{prop:factors} holds as stated. This proves Theorem~\ref{thm:main}.

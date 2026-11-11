@@ -1,0 +1,183 @@
+\section{The normalisation and the degree law}\label{sec:normal}
+
+In this section $0<\alpha\le f\le\beta<\infty$. Let $N_k(n)$ be the number of vertices of $G_n$ with in-degree $k$,
+$y_n=(N_k(n)/n)_{k\ge0}$, and $S_n=\sum_{i\le n}f(D_i(n))=n\,s(y_n)$, where $s(y)=\sum_kf(k)y_k$.
+
+\subsection{The scalar equation}
+
+For $d>0$ let
+\[
+  R_k(d)=\prod_{j=0}^{k-1}\frac{mf(j)}{d+mf(j)}\quad(k\ge1),\qquad M(d)=\sum_{k\ge1}R_k(d),
+\]
+and let $p(d)=(p_k(d))_{k\ge0}$ be the law of $X(T)$, where $X$ is the pure birth process started at $0$ that
+jumps from $k$ to $k+1$ at rate $(m/d)f(k)$, and $T$ is an independent exponential time of mean one.
+
+\begin{lemma}\label{lem:scalar}
+\textup{(i)} $\Prob(X(T)\ge k)=R_k(d)$, so $p(d)$ has mean $M(d)$, and
+\begin{equation}\label{eq:prec}
+  p_0(d)=\frac{d}{d+mf(0)},\qquad d\,p_k(d)=mf(k-1)p_{k-1}(d)-mf(k)p_k(d)\quad(k\ge1).
+\end{equation}
+\textup{(ii)} $d\,M(d)=m\sum_{k\ge0}f(k)p_k(d)$.
+\textup{(iii)} There is exactly one $c_f>0$ with $M(c_f)=m$, and $c_f\in[\alpha,\beta]$.
+\end{lemma}
+
+\begin{proof}
+(i) From state $j$ the process jumps before the killing time with probability $mf(j)/(d+mf(j))$, and
+\eqref{eq:prec} is the same computation written for the point masses. (ii) $R_k(d)\le(m\beta/(d+m\beta))^k$, so all
+sums converge absolutely; multiply \eqref{eq:prec} by $k$ and sum over $k\ge1$. (iii) Each $R_k$ is continuous and
+strictly decreasing in $d$, the series converges uniformly on $[d_0,\infty)$ for every $d_0>0$,
+$M(d)\le m\beta/d\to0$ as $d\to\infty$, and $M(d)\ge\sum_{k\le K}R_k(d)\to K$ as $d\to0$ for every $K$. At
+$d=\alpha$ every factor is at least $m/(m+1)$, so $M(\alpha)\ge m$; at $d=\beta$ every factor is at most $m/(m+1)$,
+so $M(\beta)\le m$.
+\end{proof}
+
+\begin{theorem}\label{thm:normal}
+Almost surely $y_n\to p(c_f)$ in $\ell^1$ and $S_n/n\to c_f$.
+\end{theorem}
+
+The rest of the section proves Theorem~\ref{thm:normal}. No monotonicity of $f$ is used.
+
+\subsection{Stochastic approximation in $\ell^1$}
+
+Let $e_0$ be the unit mass at $0$ and let $Q$ be the bounded operator on $\ell^1$ given by
+\[
+  (Qy)_0=-f(0)y_0,\qquad (Qy)_k=f(k-1)y_{k-1}-f(k)y_k\quad(k\ge1),
+\]
+the generator of the pure birth process with rates $f(k)$ acting on measures; $\|Q\|\le2\beta$ and
+$\sum_k(Qy)_k=0$. On probability vectors put
+\[
+   F(y)=e_0+\frac{m}{s(y)}\,Qy-y .
+\]
+Since $s\ge\alpha$ and $|s(y)-s(z)|\le\beta\|y-z\|_1$, $F$ is Lipschitz in $\ell^1$ on probability vectors.
+
+At a slot of vertex $n+1$, if the current counts are $N$ and the current total weight is $S$, a vertex of
+in-degree $k$ is chosen with probability $f(k)N_k/S$, so the conditional mean increment of the count vector is
+$QN/S$. During the $m$ slots $N$ changes by at most $2m$ in $\ell^1$ and $S$ by at most $2m\beta$, while
+$S\ge\alpha n$ and $\|QN\|_1\le2\beta n$; hence $QN/S$ differs from $Qy_n/s(y_n)$ by $O(1/n)$ in $\ell^1$,
+uniformly in the configuration. After the $m$ slots the new vertex adds $e_0$. Therefore
+\begin{equation}\label{eq:sa}
+   y_{n+1}=y_n+\frac{1}{n+1}\bigl(F(y_n)+\eta_{n+1}+\rho_n\bigr),
+\end{equation}
+where $\E[\eta_{n+1}\mid\cF_n]=0$ coordinatewise, $\|\eta_{n+1}\|_1\le4m+2$ and $\|\rho_n\|_1\le K_0/n$ for a
+constant $K_0$.
+
+Every $y_n$ lies in
+\[
+   \cK=\Bigl\{y\ge0:\ \sum_ky_k=1,\ \sum_kk\,y_k\le m\Bigr\},
+\]
+because the total in-degree of $G_n$ is $m(n-1)$. The set $\cK$ is compact in $\ell^1$: the mass above $J$ is at
+most $m/(J+1)$ uniformly on $\cK$, and the mean is lower semicontinuous. For $y\in\cK$ and $J\ge1$,
+\begin{equation}\label{eq:Ftail}
+   \|F(y)\|_1\le2+\frac{2m\beta}{\alpha},\qquad \sum_{k>J}|F(y)_k|\le\Bigl(1+\frac{2m\beta}{\alpha}\Bigr)\frac mJ .
+\end{equation}
+
+\begin{lemma}[Noise]\label{lem:noise}
+Let $\tau_n=\sum_{j<n}1/(j+1)$. Almost surely, for every $T<\infty$,
+\[
+   \lim_{N\to\infty}\ \sup_{j\ge N:\ \tau_j-\tau_N\le T}\ \Bigl\|\sum_{n=N}^{j-1}\frac{\eta_{n+1}}{n+1}\Bigr\|_1=0 .
+\]
+\end{lemma}
+
+\begin{proof}
+For each coordinate $k$ the series $\sum_n\eta_{n+1,k}/(n+1)$ is a martingale with summable increment variances,
+so it converges almost surely; work on the event where this holds for all $k$. The coordinates $k\le J$ of the
+partial sums in the statement then tend to $0$ uniformly in $j$. For the coordinates $k>J$ use \eqref{eq:sa}
+summed from $N$ to $j-1$: the noise sum equals $y_j-y_N$ minus the sums of the $F$ terms and of the $\rho$ terms.
+The mass of $y_j$ and $y_N$ above $J$ is at most $m/(J+1)$ each, the $F$ terms contribute at most a constant times
+$(T+1)/J$ by \eqref{eq:Ftail}, and the $\rho$ terms at most $K_0\sum_{n\ge N}1/(n(n+1))$. Hence the $\limsup$ in
+$N$ of the supremum is at most a constant times $(T+1)/J$, and $J$ is arbitrary.
+\end{proof}
+
+The argument avoids any convergence theorem for $\ell^1$-valued martingales: the tails are controlled by the
+recursion itself.
+
+\subsection{The limiting flow}
+
+Let $P_t=e^{tQ}$ be the semigroup of the pure birth process with rates $f(k)$; it is positive, preserves mass,
+and $\|P_t\|=1$ on $\ell^1$. Let
+\[
+   A=Q+\frac1m\,e_0\,s(\cdot),\qquad w(t)=e^{tA}y,
+\]
+for a probability vector $y$. The operator $A$ is bounded and $e^{tA}$ is positive.
+
+\begin{lemma}\label{lem:flowrep}
+Let $|w|=\sum_kw_k$ and $z(t)=w(t)/|w(t)|$. Then $z'=\frac{s(z)}{m}F(z)$. Consequently the solution of
+$\dot y=F(y)$ started at a probability vector $y$ is $\phi_\tau(y)=z(t(\tau))$, where
+$\mathrm d\tau/\mathrm dt=s(z(t))/m\in[\alpha/m,\beta/m]$; it exists for all times, stays in the probability
+vectors, and $\phi_\tau(\cK)\subset\cK$.
+\end{lemma}
+
+\begin{proof}
+Since $Q$ preserves mass, $|w|'=s(w)/m$, and therefore
+$z'=Az-\frac{s(z)}mz=Qz+\frac{s(z)}m(e_0-z)=\frac{s(z)}mF(z)$. Uniqueness for $\dot y=F(y)$ follows from the
+Lipschitz property. For $y$ with finite mean, $\sum_kk\,(Qy)_k=s(y)$, so the mean $\mu(\tau)$ of $\phi_\tau(y)$
+satisfies $\mu'=m-\mu$, and $\mu(0)\le m$ implies $\mu(\tau)\le m$. (The operator $Q$ is bounded for the weighted
+norm $\sum_k(1+k)|y_k|$, so the mean stays finite and the computation is legitimate.)
+\end{proof}
+
+\begin{proposition}[Uniform attraction]\label{prop:attract}
+$\sup_{y\in\cK}\|\phi_\tau(y)-p(c_f)\|_1\to0$ as $\tau\to\infty$.
+\end{proposition}
+
+\begin{proof}
+Let $g_y(t)=s(P_ty)$ and $h(t)=s(P_te_0)$; both take values in $[\alpha,\beta]$ and are Lipschitz. Variation of
+constants gives
+\begin{equation}\label{eq:voc}
+  w(t)=P_ty+\frac1m\int_0^tP_{t-u}e_0\,\sigma(u)\,\mathrm du,\qquad
+  \sigma(t)=g_y(t)+\frac1m\int_0^th(t-u)\,\sigma(u)\,\mathrm du,
+\end{equation}
+with $\sigma(t)=s(w(t))$. The function $\gamma\mapsto\frac1m\int_0^\infty e^{-\gamma t}h(t)\,\mathrm dt$ is
+continuous and strictly decreasing, and lies between $\alpha/(m\gamma)$ and $\beta/(m\gamma)$. Let $\gamma>0$ be
+the value at which it equals one; then $\gamma\in[\alpha/m,\beta/m]$, and
+$\kappa(t)=e^{-\gamma t}h(t)/m$ is a continuous, positive probability density on $[0,\infty)$ with finite mean
+$\bar\mu$, bounded by $(\beta/m)e^{-\gamma t}$, hence directly Riemann integrable. Let
+$v=\sum_{j\ge1}\kappa^{*j}$ be the renewal density; the series converges locally uniformly since
+$\kappa^{*j}(t)\le(\beta/m)^jt^{j-1}/(j-1)!$. The key renewal theorem \cite[Chapter~XI]{Feller}, applied to the
+function $\kappa$ itself, gives $v(t)\to1/\bar\mu$ as $t\to\infty$; in particular $v$ is bounded.
+
+Multiplying the second equation of \eqref{eq:voc} by $e^{-\gamma t}$ gives a renewal equation for
+$\tilde\sigma(t)=e^{-\gamma t}\sigma(t)$ with $\tilde g_y(t)=e^{-\gamma t}g_y(t)$, whose solution is
+\[
+   \tilde\sigma(t)=\tilde g_y(t)+\int_0^tv(t-u)\,\tilde g_y(u)\,\mathrm du .
+\]
+Since $\alpha e^{-\gamma u}\le\tilde g_y(u)\le\beta e^{-\gamma u}$ for every probability vector $y$, dominated
+convergence gives
+\[
+   \tilde\sigma(t)\to C_y:=\frac1{\bar\mu}\int_0^\infty\tilde g_y(u)\,\mathrm du\in
+   \Bigl[\frac{\alpha}{\gamma\bar\mu},\frac{\beta}{\gamma\bar\mu}\Bigr]
+\]
+uniformly in $y$. Multiplying the first equation of \eqref{eq:voc} by $e^{-\gamma t}$ and using
+$\|P_ue_0\|_1=1$, we get $e^{-\gamma t}w(t)\to\frac{C_y}{m}\,\cR$ in $\ell^1$, uniformly in $y$, where
+$\cR=\int_0^\infty e^{-\gamma u}P_ue_0\,\mathrm du$ has mass $1/\gamma$. Hence $z(t)\to\pi:=\gamma\cR$ uniformly
+in $y$, and by Lemma~\ref{lem:flowrep} (the clock $\tau(t)$ runs at speed at least $\alpha/m$)
+$\phi_\tau(y)\to\pi$ uniformly in $y$.
+
+The vector $\pi$ is the law of the pure birth process with rates $f(k)$ at an independent exponential time of
+rate $\gamma$, that is, $\pi=p(m\gamma)$. Its mean is
+$\int_0^\infty\gamma e^{-\gamma t}\int_0^th(u)\,\mathrm du\,\mathrm dt=\int_0^\infty e^{-\gamma u}h(u)\,\mathrm du=m$
+by the choice of $\gamma$. Thus $M(m\gamma)=m$, and Lemma~\ref{lem:scalar}(iii) gives $m\gamma=c_f$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:normal}]
+Interpolate $y_n$ linearly at the times $\tau_n$ and call the path $y(\cdot)$. By \eqref{eq:sa},
+Lemma~\ref{lem:noise}, the bound $\|\rho_n\|_1\le K_0/n$, the Lipschitz property of $F$ and Gronwall's inequality,
+almost surely for every $T$
+\[
+   \sup_{0\le u\le T}\bigl\|y(\tau+u)-\phi_u(y(\tau))\bigr\|_1\to0\qquad(\tau\to\infty);
+\]
+the replacement of the step sums of $F(y_n)$ by an integral costs $O(\sum_{n\ge N}(n+1)^{-2})$ because
+$\|y_{n+1}-y_n\|_1=O(1/n)$. Given $\eps>0$ choose $T$ with $\sup_{y\in\cK}\|\phi_T(y)-p(c_f)\|_1<\eps$
+(Proposition~\ref{prop:attract}); the interpolated path stays in the convex set $\cK$, so
+$\limsup_{\tau}\|y(\tau)-p(c_f)\|_1\le\eps$ almost surely. Finally $S_n/n=s(y_n)\to s(p(c_f))=c_f$ by
+Lemma~\ref{lem:scalar}(ii), since $s$ is continuous on $\ell^1$.
+\end{proof}
+
+\begin{example}[Two levels]\label{ex:two}
+Let $f(0)=a$ and $f(k)=b$ for $k\ge1$. Then $S_n=bn+(a-b)N_0(n)$, and $z=p_0(c_f)$ is the root in $(0,1)$ of
+\[
+   (a-b)z^2+(2b+ma-a)z-b=0,\qquad c_f=b+(a-b)z ,
+\]
+with $p_1=\lambda az/(1+\lambda b)$ and $p_k=p_1\,(\lambda b/(1+\lambda b))^{k-1}$, $\lambda=m/c_f$. For $m=2$,
+$a=1$, $b=2$ this gives $z=(5-\sqrt{17})/2$ and $c_f=(\sqrt{17}-1)/2$. For $a=b$ the law is geometric with ratio
+$m/(m+1)$, the degree law of uniform attachment.
+\end{example}

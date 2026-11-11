@@ -1,0 +1,213 @@
+\section{The local limit}\label{sec:local}
+
+In this section $0<\alpha\le f\le\beta<\infty$, $c=c_f$ and $\lambda=m/c$. By Theorem~\ref{thm:normal},
+$S_t/t\to c$ almost surely; since $\alpha\le S_t/t\le\beta$, for every $\eps>0$
+\begin{equation}\label{eq:tailsup}
+   \E\sup_{t\ge\eps n}\bigl|S_t/t-c\bigr|\to0\qquad(n\to\infty).
+\end{equation}
+
+\subsection{Ball shapes and the limiting probabilities}
+
+Fix $r\ge1$. A \emph{ball shape} is a finite rooted directed simple tree $H$ with vertex set $V$ and root $o$ in
+which every vertex is within distance $r$ of $o$ and every vertex at distance $r$ is a leaf. Let $I$ be the set
+of vertices at distance less than $r$ (the interior), and for $j\in V$ let $q_j$ and $k_j$ be the out-degree and
+the in-degree of $j$ in $H$. We write $j\to i$ for an edge sent by $j$ and received by $i$. The shape is
+\emph{admissible} if $q_j=m$ for every $j\in I$ and $q_j\le m$ for every $j$. Let $A(H)$ be the number of
+automorphisms of $H$ that fix the root and preserve orientations, and $(m)_q=m!/(m-q)!$.
+
+An \emph{age vector} is $x\in(0,1)^V$ with distinct coordinates; it is \emph{compatible} if $x_j>x_i$ for every
+edge $j\to i$. Given a compatible age vector, let $(Y_i)_{i\in V}$ be independent processes, where $Y_i$ is
+defined on $[x_i,1]$, starts at $0$, jumps by $+1$ at rate $\lambda f(Y_i(t))/t$ at time $t$, and in addition
+jumps by $+1$ at each of the times $x_j$, $j\to i$. Define
+\begin{equation}\label{eq:Phi}
+  \Phi_H(x)=\prod_{j\in V}(m)_{q_j}\ \prod_{j\to i}\frac{1}{c\,x_j}\ \,
+     \E\Bigl[\,\prod_{j\to i}f\bigl(Y_i(x_j-)\bigr)\prod_{i\in I}\mathbf 1_{\{Y_i(1)=k_i\}}\Bigr]
+\end{equation}
+for compatible $x$ and $\Phi_H(x)=0$ otherwise, and
+\begin{equation}\label{eq:PH}
+   \mathbf P_H=\frac{1}{A(H)}\int_{(0,1)^V}\Phi_H(x)\,\mathrm dx .
+\end{equation}
+
+\begin{theorem}\label{thm:localbdd}
+For every $r\ge1$ and every admissible ball shape $H$ of radius $r$,
+\[
+   \frac1n\,\#\bigl\{u\in[n]:\ B_r(G_n,u)\cong H\bigr\}\ \longrightarrow\ \mathbf P_H\qquad\text{in probability,}
+\]
+and the proportion of $u$ whose ball $B_r(G_n,u)$ is not an admissible ball shape tends to $0$ in probability.
+Consequently $G_n$ converges locally in probability to the random rooted tree whose balls have the laws
+$(\mathbf P_H)$; this tree is infinite, simple, and all its vertices have out-degree $m$.
+\end{theorem}
+
+The expectation in \eqref{eq:Phi} is a product of explicit factors.
+
+\begin{proposition}\label{prop:factors}
+Let $X$ be the pure birth process started at $0$ with rates $\lambda f(k)$, and $h_\lambda(u)=\E f(X(u))$. For
+compatible $x$ the expectation in \eqref{eq:Phi} equals $\prod_{i\in V}F_i$, where:
+for $i\in I$ with children of ages $t_1<\dots<t_k$ $(k=k_i)$, and $t_0=x_i$, $t_{k+1}=1$,
+\[
+   F_i=\prod_{\ell=0}^{k-1}f(\ell)\ \prod_{\ell=0}^{k}\Bigl(\frac{t_\ell}{t_{\ell+1}}\Bigr)^{\lambda f(\ell)};
+\]
+for $i\notin I$, $F_i=1$ if $k_i=0$ and $F_i=h_\lambda(\log(t_1/x_i))$ if $k_i=1$, where $t_1$ is the age of the
+child of $i$.
+\end{proposition}
+
+\begin{proof}
+The processes are independent, so the expectation factorises. For $i\in I$ the event $Y_i(1)=k_i$ says that
+$Y_i$ makes no jump other than the $k_i$ forced ones; on this event $Y_i=\ell$ on $[t_\ell,t_{\ell+1})$, the
+probability of no other jump on that interval is $\exp(-\lambda f(\ell)\int_{t_\ell}^{t_{\ell+1}}\mathrm dt/t)$,
+and the weight at the $\ell$th forced jump is $f(\ell-1)$. A vertex $i\notin I$ is a leaf of $H$ with no
+constraint at time $1$; if its neighbour is its child of age $t_1$, then $Y_i(t_1-)$ has the law of
+$X(\log(t_1/x_i))$.
+\end{proof}
+
+For instance, if $H$ is the star in which the root has no child, the root contributes $x_o^{\lambda f(0)}$, and
+each of its $m$ parents, of age $y<x_o$, contributes $h_\lambda(\log(x_o/y))/(c\,x_o)$, which integrates to
+$\int_0^\infty e^{-u}h_\lambda(u)\,\mathrm du/c=1$ over $y\in(0,x_o)$ by Lemma~\ref{lem:scalar}(ii); since
+$(m)_m=A(H)=m!$, this gives $\mathbf P_H=\int_0^1x^{\lambda f(0)}\,\mathrm dx=p_0(c)$, in agreement with
+Theorem~\ref{thm:normal}. The same computation shows that the age $y$ of a parent of a vertex of age $x$ has
+density $h_\lambda(\log(x/y))/(cx)$ on $(0,x)$, which is not uniform unless $f$ is constant.
+
+\subsection{Forced slots}
+
+Fix an admissible $H$ with $e=|V|-1$ edges, an injective labelling $\iota:V\to[n]$ with $\iota(j)>\iota(i)$ for
+every edge $j\to i$, and a \emph{slot assignment} $\sigma$, which gives to every edge $j\to i$ a slot of
+$\iota(j)$, different edges receiving different slots. There are $\prod_j(m)_{q_j}$ slot assignments. Let
+$E_{\iota,\sigma}$ be the event that for every edge $j\to i$ the assigned slot of $\iota(j)$ chooses
+$\iota(i)$, and let $D_\iota=\{D_{\iota(i)}(n)=k_i\ \text{for all }i\in I\}$.
+
+The \emph{forced process} is the graph process in which every assigned slot chooses its prescribed endpoint with
+probability one and all other slots follow the original rule. Write $\Prob^{\sigma}$, $\E^\sigma$ for its law.
+Multiplying the transition probabilities along a history gives, for every nonnegative function $\Psi$ of the
+history up to time $n$,
+\begin{equation}\label{eq:com}
+   \E\bigl[\Psi\,\mathbf 1_{E_{\iota,\sigma}}\bigr]
+   =\E^\sigma\Bigl[\Psi\prod_{j\to i}\frac{f(D^-_{j\to i})}{S^-_{j\to i}}\Bigr],
+\end{equation}
+where $D^-_{j\to i}$ is the in-degree of $\iota(i)$ and $S^-_{j\to i}$ the total weight of the eligible vertices
+immediately before the slot assigned to $j\to i$.
+
+\begin{lemma}[The forced process has the same normalisation]\label{lem:forcedS}
+Suppose that all labels $\iota(j)$ are at least $\eps n$. Under $\Prob^\sigma$,
+$\sup_{\eps n\le t\le n}|S_t/t-c|\to0$ in $L^1$ as $n\to\infty$, uniformly in $\iota$ and $\sigma$.
+\end{lemma}
+
+\begin{proof}
+Couple the forced process with the original one: they coincide until the first assigned slot, and afterwards,
+at each slot that is not assigned, the two endpoints are chosen by a maximal coupling of the two conditional
+laws. Let $\bar K$ be the number of labels at which the two in-degree sequences have differed at some time. If
+the two weight vectors at a slot of vertex $t+1$ are $w$ and $w'$ with totals $W,W'\ge\alpha t$, then
+\[
+   \bigl\|w/W-w'/W'\bigr\|_1\le\frac{2\|w-w'\|_1}{W}\le\frac{2\beta\bar K}{\alpha t},
+\]
+so the two choices differ with probability at most $C\bar K/t$, in which case $\bar K$ increases by at most $2$;
+at an assigned slot $\bar K$ increases by at most $2$. Hence
+$\E\bar K\le 2e\exp(2mC\sum_{t\ge\eps n/2}^{n}1/t)\le K_\eps$, a constant that does not depend on $n$. Since the
+two values of $S_t$ differ by at most $\beta\bar K$, the claim follows from \eqref{eq:tailsup}.
+\end{proof}
+
+\begin{lemma}[Tagged degrees]\label{lem:tagged}
+Let $\iota=\iota_n$ and $\sigma$ be as above, and suppose that $\iota_n(j)/n\to x_j$ for all $j$, where $x$ is a
+compatible age vector with all $x_j\ge\eps$. Under $\Prob^\sigma$, the vector formed by the in-degrees
+$D^-_{j\to i}$ $(j\to i)$ and $D_{\iota(i)}(n)$ $(i\in V)$ converges in total variation to the vector formed by
+$Y_i(x_j-)$ and $Y_i(1)$.
+\end{lemma}
+
+\begin{proof}
+The vertices $\iota(i)$, $i\in V$, are called tagged. Consider a slot of a vertex $t+1$ that is not assigned.
+Given the history, the tagged vertex $\iota(i)\le t$ is chosen with probability $f(D_{\iota(i)})/S$, where $S$
+is the current total weight, and at most one tagged vertex is chosen. Compare with independent Bernoulli
+variables of parameters $f(D_{\iota(i)})/(ct)$: the total variation distance between the two laws of the
+increment of the tagged vector is at most
+\[
+   K_1\,\frac{|S/t-c|}{t}+\frac{K_1}{t^2},
+\]
+with $K_1$ depending on $|V|,m,\alpha,\beta$ only, because $S\ge\alpha t$, $c\ge\alpha$ and the probability
+that two of the Bernoulli variables equal one is $O(t^{-2})$. At an assigned slot the prescribed tagged vertex
+gains one and the others gain nothing, in both systems. Using maximal couplings slot by slot, the tagged vector
+of the forced process coincides up to time $n$ with a system of independent chains, one for each tagged vertex,
+which start at $0$ at the birth of the vertex, jump at each unassigned slot of a vertex $t+1$ with probability
+$f(\text{state})/(ct)$, and jump at their assigned slots, except on an event of probability at most
+\[
+   K_1m\log(1/\eps)\ \E^\sigma\!\sup_{t\ge\eps n}|S_t/t-c|+O\bigl(1/(\eps n)\bigr),
+\]
+which tends to $0$ by Lemma~\ref{lem:forcedS} (within a batch $S$ differs from $S_t$ by at most $2m\beta$).
+
+It remains to compare each independent chain with $Y_i$. Over the slots of vertex $t+1$ the chain in state $k$
+jumps exactly once with probability $mf(k)/(ct)+O(t^{-2})$ and more than once with probability $O(t^{-2})$;
+the process $Y_i$ in state $k$ has the same two estimates on the age interval $[t/n,(t+1)/n]$, since
+$\int\lambda f(k)\,\mathrm ds/s=\lambda f(k)\log(1+1/t)$. The total variation distance between the two paths,
+observed at the ages $t/n$, is therefore $O(\sum_{t\ge\eps n}t^{-2})=O(1/(\eps n))$, apart from the effect of the
+forced times, which are $\iota_n(j)/n$ for the chain and $x_j$ for $Y_i$: moving a forced time by $\delta$
+changes the law of the observed vector by at most the probability of an unforced jump in a window of length
+$\delta$, which is $O(\delta/\eps)$. Finally the in-degree of a target immediately before its assigned slot
+differs from its in-degree at the beginning of the batch with probability $O(1/n)$.
+\end{proof}
+
+\begin{proposition}\label{prop:embed}
+Under the assumptions of Lemma~\ref{lem:tagged},
+\[
+   n^{e}\,\Prob\bigl(E_{\iota_n,\sigma}\cap D_{\iota_n}\bigr)\ \longrightarrow\
+   \prod_{j\to i}\frac1{c\,x_j}\ \E\Bigl[\prod_{j\to i}f\bigl(Y_i(x_j-)\bigr)\prod_{i\in I}\mathbf 1_{\{Y_i(1)=k_i\}}\Bigr],
+\]
+and the left-hand side is bounded by $(4C/\eps)^e$ for all labellings with labels at least $\eps n$ and $n$
+large. The convergence is uniform on every compact set of compatible age vectors.
+\end{proposition}
+
+\begin{proof}
+Apply \eqref{eq:com} with $\Psi=\mathbf 1_{D_\iota}$. Each factor $nf(D^-)/S^-$ is at most
+$n\beta/(\alpha(\eps n-1))$, and $S^-_{j\to i}/n\to c\,x_j$ in $L^1$ under $\Prob^\sigma$ by
+Lemma~\ref{lem:forcedS}. The numerators and the indicator are functions of the vector of
+Lemma~\ref{lem:tagged}. The limit is continuous in $x$ on the set of compatible age vectors, and convergence
+along every sequence $\iota_n(\cdot)/n\to x$ gives the uniformity.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{thm:localbdd}}
+
+\emph{Counting.} Let $\mathcal A_\iota$ be the event that $\iota$ is an isomorphism from $H$ onto
+$B_r(G_n,\iota(o))$. A ball isomorphic to $H$ has exactly $A(H)$ such isomorphisms, so
+\begin{equation}\label{eq:count}
+   \Prob\bigl(B_r(G_n,U_n)\cong H\bigr)=\frac{1}{n\,A(H)}\sum_\iota\Prob(\mathcal A_\iota).
+\end{equation}
+We compare $\mathbf 1_{\mathcal A_\iota}$ with $\sum_\sigma\mathbf 1_{E_{\iota,\sigma}\cap D_\iota}$. Every edge
+of $H$ has an endpoint in $I$. On $D_\iota$ no edge $j\to i$ with $i\in I$ can be doubled, because the in-degree
+of $\iota(i)$ is exactly the number of its children; and an edge $j\to i$ with $j\in I$ cannot be doubled on
+$E_{\iota,\sigma}$, because all $m$ slots of $\iota(j)$ are assigned to distinct endpoints. Hence at most one
+$\sigma$ contributes, and on $\mathcal A_\iota$ exactly one does. Conversely, on $E_{\iota,\sigma}\cap D_\iota$
+all edges of $G_n$ at the vertices $\iota(i)$, $i\in I$, are images of edges of $H$; by induction on the
+distance, the vertices at distance $d\le r$ from $\iota(o)$ in $G_n$ are the images of the vertices at distance
+$d$ in $H$. Thus $\mathcal A_\iota$ can fail only if $G_n$ has an edge between the images of two vertices at
+distance $r$. If all labels are at least $\eps n$, Lemma~\ref{lem:edges} bounds the probability of
+$E_{\iota,\sigma}$ together with one such extra edge by $(4mC/(\eps n))^{e+1}$. There are at most
+$n^{|V|}=n^{e+1}$ labellings, so
+\begin{equation}\label{eq:count2}
+   \Prob\bigl(B_r(G_n,U_n)\cong H,\ B_r(G_n,U_n)\subset[\eps n,n]\bigr)
+   =\frac{1}{A(H)}\ \frac{1}{n^{|V|}}\sum_{\iota\ge\eps n}\ \sum_\sigma n^{e}\,\Prob(E_{\iota,\sigma}\cap D_\iota)+O_\eps(1/n).
+\end{equation}
+
+\emph{Riemann sums.} By Proposition~\ref{prop:embed} the summands are bounded, and they converge uniformly on
+compact sets of compatible age vectors; the limit does not depend on $\sigma$. Labellings for which two ages are
+within $\delta$ form a proportion $O(\delta+1/n)$ of all labellings. Letting $n\to\infty$ and then $\delta\to0$,
+the right-hand side of \eqref{eq:count2} converges to $A(H)^{-1}\int_{[\eps,1]^V}\Phi_H(x)\,\mathrm dx$.
+
+\emph{The cutoff.} By Proposition~\ref{prop:balls} the left-hand side of \eqref{eq:count2} differs from
+$\Prob(B_r(G_n,U_n)\cong H)$ by at most $(\sum_{l\le r}B^l)\sqrt\eps$. The integrals over $[\eps,1]^V$ increase as
+$\eps$ decreases and are bounded by one, so $\Phi_H$ is integrable and
+$\Prob(B_r(G_n,U_n)\cong H)\to\mathbf P_H$. Balls that are not admissible ball shapes have vanishing probability
+by Proposition~\ref{prop:cycles} and Corollary~\ref{cor:tight}, and tightness shows that $(\mathbf P_H)_H$ is a
+probability distribution for each $r$.
+
+\emph{Two roots.} Let $U_n,U_n'$ be independent uniform vertices. Their balls of radius $r$ intersect with
+probability at most $\E|B_{2r}(G_n,U_n)|/n=O(1/n)$. For two admissible shapes $H_1,H_2$ repeat the argument with
+the disjoint union $H_1\sqcup H_2$, which has $|V_1|+|V_2|-2$ edges, and two root factors $1/n^2$. An edge
+between the image of $H_1$ and the image of $H_2$ can only join vertices at distance $r$ from the two roots and
+does not change either ball, so the counting step is unchanged. No forced jump links the two components, the
+processes $Y_i$ are independent, and the limiting density is $\Phi_{H_1}\Phi_{H_2}$. Therefore
+\[
+   \Prob\bigl(B_r(G_n,U_n)\cong H_1,\ B_r(G_n,U_n')\cong H_2\bigr)\to\mathbf P_{H_1}\mathbf P_{H_2}.
+\]
+With $H_1=H_2=H$ this says that the second moment of $n^{-1}\#\{u:B_r(G_n,u)\cong H\}$ converges to
+$\mathbf P_H^2$, and the first moment converges to $\mathbf P_H$; hence the convergence in probability. Since
+balls with more than $M$ vertices have expected proportion at most $(\sum_{l\le r}B^l)/M$, the convergence for
+each shape gives convergence in probability of the empirical average of every bounded function of the ball of
+radius $r$, which is local convergence in probability. The properties of the limit were proved in
+Corollary~\ref{cor:tight}. \qed
