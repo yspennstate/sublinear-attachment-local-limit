@@ -27,7 +27,7 @@ f(k)/k -> gamma > 0, unbounded increments or inf f = 0 are not covered.
   (`python sim_check.py 1000000 11 out.json`).
 - `data/sim_1e6_s*.json`: outputs of four runs with n = 10^6 (seeds 11, 12, 21, 22), used in Table 1.
 - `lean/P0089_Finite.lean`: a Lean 4 proof, with Mathlib, of the finite steps of the paper: the two sums in the
-  a priori bound on the degrees, the normalisation inequality used for the forced process, and the constants of the
-  two-level example (`lake env lean P0089_Finite.lean` in a Mathlib project; checked with Lean 4.33.1).
+  a priori bound on the degrees, the normalisation inequality used for the forced process, and the closed-form
+  mass and mean of the two-level example (`lake env lean P0089_Finite.lean` in a Mathlib project; checked with Lean 4.33.1).
 
 The paper is part of the Math Brain project: https://github.com/yspennstate/math-brain-public

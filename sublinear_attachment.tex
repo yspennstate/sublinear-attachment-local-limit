@@ -59,9 +59,11 @@ form a P\'olya urn, the graph has an exchangeable representation,
 and Berger, Borgs, Chayes and Saberi~\cite{BBCS} used it to identify the local limit, the P\'olya point tree;
 see \cite{GHHR,Lo} and \cite[Chapter~5]{vdH2} for extensions, including random out-degrees and additive fitness.
 Attachment functions that are not affine go back to Krapivsky, Redner and Leyvraz~\cite{KRL} and Krapivsky and
-Redner~\cite{KR}, who computed the limiting degree distribution of the tree $m=1$ for $f(k)=k^{a}$; it has the
+Redner~\cite{KR}, who computed the limiting degree distribution of the tree $m=1$ for attachment proportional to a
+power $a$ of the degree, which in the in-degree indexing used here is $f(k)=(k+1)^{a}$; it has the
 product form of~\eqref{eq:pk} below. For $m=1$ the graph is a
-tree, which embeds in a continuous-time branching process for every $f$, and Rudas, T\'oth and
+tree, which embeds in a continuous-time branching process for every $f$ for which that process does not explode
+and has a Malthusian parameter, and Rudas, T\'oth and
 Valk\'o~\cite{RTV} obtained its degree distribution and its local limit in this way. Choi, Sethuraman and
 Venkataramani~\cite{CSV} prove a law of large numbers for the degree counts when $f(k)/k\to0$ in a model in which
 every step adds one edge, from a new vertex to an old one or between two old vertices, so that the graph has cycles;
@@ -209,7 +211,7 @@ $p_3$ & 0.06994 & 0.07006 & 0.06971 & 0.07025 & 0.07005\\
 
 A proportion $p$ measured on $10^6$ vertices has standard deviation about $\sqrt{p(1-p)}\times10^{-3}$ if the
 vertices are treated as independent, which is $5\times10^{-4}$ for $p_0$ and $10^{-4}$ for $\mathbf P_H$. The
-differences in the table are of this order; the largest is $1.3$ such standard deviations.
+differences in the table are of this order; the largest is about $1.8$ such standard deviations.
 
 \section*{Acknowledgements and funding}
 This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math
