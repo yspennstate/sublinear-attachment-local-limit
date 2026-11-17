@@ -149,7 +149,7 @@ distribution as a stochastic approximation in $\ell^1$, in the sense of~\cite{Be
 limit through a time change that turns
 the limiting differential equation into a linear one. The same time change appears in~\cite{CSV}, where the linear
 equation is treated by semigroup methods; here it is solved by a renewal equation, and the
-key renewal theorem gives convergence to $p(c_f)$ uniformly over the compact set of probability vectors with mean
+key renewal theorem~\cite[Chapter~XI]{Feller} gives convergence to $p(c_f)$ uniformly over the compact set of probability vectors with mean
 at most $m$ (Section~\ref{sec:normal}). No monotonicity of $f$ is needed, and the equilibrium need not be stable
 in any linearised sense that we would have to verify. The local limit is then obtained from an exact change of
 measure: the probability that prescribed slots choose prescribed endpoints equals an expectation, for the
@@ -240,6 +240,17 @@ Theorem~\ref{thm:main} and a proof; a Codex agent (OpenAI) and a Claude agent (A
 argument, and the second wrote the simulation program. In November 2026 a Claude Fable agent (Anthropic) checked
 the proof again, ran the simulations and prepared the manuscript. These checks are not peer review. The author
 directed the work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+The results rest on the work of others. The question is Open Problem~24 of~\cite{Aletti}, contributed by Deijfen
+and van der Hofstad. For $m=1$ the limiting degree distribution is that of Krapivsky, Redner and
+Leyvraz~\cite{KRL} and of Rudas, T\'oth and Valk\'o~\cite{RTV}, and Choi, Sethuraman and Venkataramani~\cite{CSV}
+proved the law of large numbers for the degree counts when $f(k)/k\to0$ in a model that adds one edge per step,
+through the time change used here. The proof writes the empirical in-degree distribution as a stochastic
+approximation in the sense of~\cite{Benaim,Pemantle} and uses the key renewal theorem~\cite[Chapter~XI]{Feller}.
+The paper adds the case of fixed out-degree $m\ge2$ without monotonicity of $f$: the renewal equation that
+identifies $c_f$, the exact change of measure for forced choices, and from these the local limit with explicit
+ball probabilities. Attachment functions with $f(k)/k\to\gamma\in(0,\infty)$ that are not affine, functions with
+unbounded increments and functions with $\inf f=0$ remain open.
 
 \section*{Code and data availability}
 Programs and outputs:\\
